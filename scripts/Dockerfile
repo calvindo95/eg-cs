@@ -10,7 +10,7 @@ RUN apt -y install curl wget
 RUN apt -y install libtool
 RUN apt -y install cmake make automake
 RUN apt -y install g++ clang
-RUN apt -y install python-dev
+RUN apt -y install python3-dev
 
 # set user; everything below is under user webserver
 ENV HOME=/home/webserver
