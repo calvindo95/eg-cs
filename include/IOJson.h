@@ -3,7 +3,7 @@
 #include <fstream>
 #include <filesystem>
 
-#include <nlohmann/json.hpp>
+#include <json.hpp>
 
 class IOJson{
     protected:

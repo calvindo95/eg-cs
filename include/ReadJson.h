@@ -2,7 +2,6 @@
 #include <string>
 #include <fstream>
 
-#include <nlohmann/json.hpp>
 #include <IOJson.h>
 
 using json = nlohmann::json;

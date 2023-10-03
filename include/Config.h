@@ -8,7 +8,7 @@
 #include <sstream>
 #include <filesystem>
 
-#include <nlohmann/json.hpp>
+#include <json.hpp>
 
 using json = nlohmann::json;
 

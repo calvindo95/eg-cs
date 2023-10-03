@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include <sstream>
 
-#include <nlohmann/json.hpp>
 #include <IOJson.h>
 
 using json = nlohmann::json;
@@ -20,7 +19,7 @@ class WriteJson: public IOJson{
     public:
         WriteJson(std::string dir);
 
-        int insert_json(std::string key, std::string value);
+        void insert_json(std::string key, std::string value);
         void print_json();
         void write_to_file();
 };

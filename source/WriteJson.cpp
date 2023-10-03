@@ -22,7 +22,7 @@ size_t WriteJson::get_hash(){
     return tmp_hash;
 }
 
-int WriteJson::insert_json(std::string key, std::string value){
+void WriteJson::insert_json(std::string key, std::string value){
     j[key] = value;
 }
 
