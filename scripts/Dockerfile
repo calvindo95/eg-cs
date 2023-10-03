@@ -18,7 +18,7 @@ RUN useradd -ms /bin/bash webserver
 USER webserver
 WORKDIR /home/webserver
 
-RUN git clone https://github.com/calvindo95/eg-cs.git && \
+RUN git clone -b develop https://github.com/calvindo95/eg-cs.git && \
     cd eg-cs/include && wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp && cd .. && \
     mkdir build && cd build && \
     cmake .. && \
