@@ -33,11 +33,22 @@ void WriteJson::print_json(){
 void WriteJson::write_to_file(){
     size_t hashed_file = get_hash();
     
+    // Create final file path
     std::stringstream ss;
     ss << IOJson::GET_EVT_DIR() << hashed_file << ".json";
     
+    // Create tmp file path
+    std::stringstream ss1;
+    ss1 << "/tmp/" << hashed_file << ".json";
+    
+    // Write to tmp file path
     std::ofstream my_json;
-
-    my_json.open(ss.str());
+    
+    my_json.open(ss1.str());
     my_json << j.dump(4);
+
+    my_json.close();
+
+    // Move tmp to final file path; Prevents other process from reading before write is done
+    std::rename(ss1.str().c_str(), ss.str().c_str());
 }
