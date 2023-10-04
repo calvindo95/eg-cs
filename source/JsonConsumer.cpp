@@ -29,6 +29,11 @@ void JsonConsumer::monitor_thread() noexcept{
             std::ifstream ifs;
             ifs.open(files[i]);
 
+            // Skip file if can't open file
+            if(!static_cast<bool>(ifs)){
+                continue;
+            }
+
             json j = json::parse(ifs);
             std::cout << j.dump(4) << std::endl;
             //json_tsq.push(j);
