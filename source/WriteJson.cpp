@@ -14,7 +14,18 @@ std::string WriteJson::get_time(){
     tstruct = *localtime(&now);
     strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &tstruct);
 
-    return buf;
+    // get current time
+    auto now_ms = std::chrono::system_clock::now();
+
+    // get number of milliseconds for the current second
+    // (remainder after division into seconds)
+    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(now_ms.time_since_epoch()) % 1000;
+
+    std::stringstream ss;
+
+    ss << buf << "." << std::setfill('0') << std::setw(3) << ms.count();
+
+    return ss.str();
 }
 
 size_t WriteJson::get_hash(){
