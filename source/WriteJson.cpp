@@ -31,15 +31,16 @@ void WriteJson::print_json(){
 }
 
 void WriteJson::write_to_file(){
-    size_t hashed_file = get_hash();
+    size_t uid = get_hash();
+    j["UID"] = uid;
     
     // Create final file path
     std::stringstream ss;
-    ss << IOJson::GET_EVT_DIR() << hashed_file << ".json";
+    ss << IOJson::GET_EVT_DIR() << uid << ".json";
     
     // Create tmp file path
     std::stringstream ss1;
-    ss1 << "/tmp/" << hashed_file << ".json";
+    ss1 << "/tmp/" << uid << ".json";
     
     // Write to tmp file path
     std::ofstream my_json;
