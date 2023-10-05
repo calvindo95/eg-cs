@@ -16,8 +16,8 @@ class JsonConsumer{
         TSQueue<json> json_tsq;
 
         void consumer_thread() noexcept; // thread to consume json queue and send post request
-        void monitor_thread() noexcept; // thread to monitor queue dir and enque json object and delete file
 
     public:
         JsonConsumer(); // start consumer thread here
+        void monitor_thread() noexcept; // thread to monitor queue dir and enque json object and delete file
 };

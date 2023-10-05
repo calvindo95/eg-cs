@@ -3,9 +3,6 @@
 JsonConsumer::JsonConsumer(){
     std::thread consumer(&JsonConsumer::consumer_thread, this);
     consumer.detach();
-
-    std::thread monitor(&JsonConsumer::monitor_thread, this);
-    monitor.detach();
 }
 
 void JsonConsumer::consumer_thread() noexcept{
@@ -25,6 +22,7 @@ void JsonConsumer::monitor_thread() noexcept{
         std::vector<std::string> files = rj.get_files_in_dir();
 
         for(int i = 0; i < files.size(); i++){
+            std::cout << "File Monitor thread found file: " << files[i] << std::endl;
             // Open json file and load into json object
             std::ifstream ifs;
             ifs.open(files[i]);
@@ -35,11 +33,10 @@ void JsonConsumer::monitor_thread() noexcept{
             }
 
             json j = json::parse(ifs);
-            std::cout << j.dump(4) << std::endl;
-            //json_tsq.push(j);
+            json_tsq.push(j);
 
             // Delete file after parsing json
-            std::cout << "Deleting file: " << files[i] << std::endl;
+            std::cout << "File Monitor thread deleting file: " << files[i] << std::endl;
             std::filesystem::remove(files[i]);
         }
     }

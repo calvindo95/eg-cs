@@ -6,4 +6,5 @@ int main(){
 
     JsonConsumer jc;
     std::cout << "Done initializing JsonConsumer" << std::endl;
+    jc.monitor_thread();
 }
