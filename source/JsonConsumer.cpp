@@ -30,7 +30,7 @@ void JsonConsumer::post_request(json j){
 
         std::stringstream ss;
         ss << "http://" << config.GET_TNH_IP() << ":" << config.GET_TNH_PORT() << "/post_json";
-        std::cout << j.dump() << std::endl;
+        
         curl_easy_setopt(curl, CURLOPT_URL, ss.str().c_str());
         curl_easy_setopt(curl, CURLOPT_COPYPOSTFIELDS, j.dump().c_str());
 
