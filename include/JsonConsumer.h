@@ -1,10 +1,12 @@
 #include <iostream>
 #include <thread>
 #include <cstdio>
+#include <chrono>
 
 #include <ReadJson.h>
 #include <TSQueue.h>
 #include <Config.h>
+#include <curl/curl.h>
 
 class JsonConsumer{
     // start consume thread to read from queue and send to server for processing
@@ -16,6 +18,7 @@ class JsonConsumer{
         TSQueue<json> json_tsq;
 
         void consumer_thread() noexcept; // thread to consume json queue and send post request
+        void post_request(json j);
 
     public:
         JsonConsumer(); // start consumer thread here

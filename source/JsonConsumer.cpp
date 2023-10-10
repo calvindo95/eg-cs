@@ -1,6 +1,7 @@
 #include <JsonConsumer.h>
 
 JsonConsumer::JsonConsumer(){
+    std::cout << config.GET_TNH_IP() << std::endl;
     std::thread consumer(&JsonConsumer::consumer_thread, this);
     consumer.detach();
 }
@@ -8,9 +9,41 @@ JsonConsumer::JsonConsumer(){
 void JsonConsumer::consumer_thread() noexcept{
     while(true){
         json j = json_tsq.pop();
-
-        std::cout << j.dump(4) << std::endl;
+        
+        post_request(j);
     }
+}
+
+void JsonConsumer::post_request(json j){
+    CURL *curl;
+    CURLcode res;
+
+    curl_global_init(CURL_GLOBAL_ALL);
+    curl = curl_easy_init();
+
+    if(curl){
+        struct curl_slist *headers = NULL;
+        headers = curl_slist_append(headers, "Content-Type: application/json");
+        headers = curl_slist_append(headers, "Accept: application/json");
+        headers = curl_slist_append(headers, "charset: utf-8");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+        std::stringstream ss;
+        ss << "http://" << config.GET_TNH_IP() << ":" << config.GET_TNH_PORT() << "/post_json";
+        std::cout << j.dump() << std::endl;
+        curl_easy_setopt(curl, CURLOPT_URL, ss.str().c_str());
+        curl_easy_setopt(curl, CURLOPT_COPYPOSTFIELDS, j.dump().c_str());
+
+        res = curl_easy_perform(curl);
+
+        if(res != CURLE_OK){
+            std::cerr << "curl_easy_perform failed: " << curl_easy_strerror(res) << std::endl;
+        }
+
+        curl_easy_cleanup(curl);
+    }
+    curl_global_cleanup();
+
 }
 
 void JsonConsumer::monitor_thread() noexcept{
@@ -38,7 +71,9 @@ void JsonConsumer::monitor_thread() noexcept{
             // Delete file after parsing json
             std::cout << "File Monitor thread deleting file: " << files[i] << std::endl;
             std::filesystem::remove(files[i]);
+
         }
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
     
 }

@@ -11,6 +11,8 @@ Config& Config::get_instance(){
 
 void Config::update_config(){
     update_option(EVENT_DIR, "EVENT_DIR");
+    update_option(TNH_IP, "TNH_IP");
+    update_option(TNH_PORT, "TNH_PORT");
 }
 
 template <typename T>
@@ -50,4 +52,12 @@ void Config::update_option(T& option, std::string env_var){
 
 std::string Config::GET_EVENT_DIR(){
     return EVENT_DIR;
+}
+
+std::string Config::GET_TNH_IP(){
+    return TNH_IP;
+}
+
+std::string Config::GET_TNH_PORT(){
+    return TNH_PORT;
 }

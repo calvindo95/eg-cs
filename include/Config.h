@@ -15,6 +15,8 @@ using json = nlohmann::json;
 class Config{
     private:
         std::string EVENT_DIR;
+        std::string TNH_IP;
+        std::string TNH_PORT;
 
         Config();
         void update_config();
@@ -27,6 +29,8 @@ class Config{
         static Config& get_instance();
 
         std::string GET_EVENT_DIR();
+        std::string GET_TNH_IP();
+        std::string GET_TNH_PORT();
 };
 
 #endif

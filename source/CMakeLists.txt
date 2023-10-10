@@ -15,4 +15,4 @@ add_executable(${CLIENT} main_egc.cpp)
 target_link_libraries(${CLIENT} config parseargument writejson)
 
 add_executable(${SERVER} main_egs.cpp)
-target_link_libraries(${SERVER} config jsonconsumer readjson)
+target_link_libraries(${SERVER} config jsonconsumer readjson ${CURL_LIBRARIES})
