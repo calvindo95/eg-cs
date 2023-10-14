@@ -1,7 +1,6 @@
 #include <JsonConsumer.h>
 
 JsonConsumer::JsonConsumer(){
-    std::cout << config.GET_TNH_IP() << std::endl;
     std::thread consumer(&JsonConsumer::consumer_thread, this);
     consumer.detach();
 }
@@ -75,5 +74,4 @@ void JsonConsumer::monitor_thread() noexcept{
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
-    
 }
