@@ -27,7 +27,7 @@ void Config::update_option(T& option, std::string env_var){
         else{
             std::stringstream ss;
             ss << "Environment variable: " << env_var << " does not exist, now checking settings.json" << std::endl;
-            //std::cerr << ss.str();
+            std::cerr << ss.str();
         }
 
         // Check settings.json
