@@ -24,4 +24,5 @@ RUN git clone -b develop https://github.com/calvindo95/eg-cs.git && \
     cmake .. && \
     cmake --build . -j4
 
+WORKDIR /home/webserver/eg-cs
 CMD ["./scripts/run_server.sh"]
