@@ -20,21 +20,21 @@ template <typename T>
 void Config::update_option(T& option, std::string env_var){
     try{
         std::stringstream ss;
-        
+
         // Check for env var
         char* buffer = getenv(env_var);
         if(buffer != NULL){
             option = static_cast<T>(getenv(env_var));
     
             ss << "Config: " << env_var << " is set as an env variable" << std::endl;
-            std::cout << ss;
+            std::cout << ss.str();
             //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
         }
         // Check json if env var doesn't exist
         else{
             ss << "Config: " << env_var << " is not set as an env variable, checking settings.json" << std::endl;
             //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
-            std::cout << ss;
+            std::cout << ss.str();
             ss.str(std::string());
             ss.clear();
     
@@ -47,12 +47,12 @@ void Config::update_option(T& option, std::string env_var){
             if(j.contains(env_var)){
                 ss << "Config: " << env_var << " found in settings.json" << std::endl;
                 //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
-                std::cout << ss;
+                std::cout << ss.str();
                 option = static_cast<T>(j.at(env_var));
             }
             else{
                 ss << "Config: " << env_var << " not found in settings.json" << std::endl;
-                std::cout << ss;
+                std::cout << ss.str();
                 //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
             }
         }
