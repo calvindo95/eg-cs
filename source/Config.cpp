@@ -19,6 +19,8 @@ void Config::update_config(){
 template <typename T>
 void Config::update_option(T& option, std::string env_var){
     try{
+        std::stringstream ss;
+        
         // Check for env var
         char* buffer = getenv(env_var);
         if(buffer != NULL){
@@ -41,8 +43,7 @@ void Config::update_option(T& option, std::string env_var){
             ifs.open("./settings.json");
         
             json j = json::parse(ifs);
-            std::stringstream ss;
-            
+
             if(j.contains(env_var)){
                 ss << "Config: " << env_var << " found in settings.json" << std::endl;
                 //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
