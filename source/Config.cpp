@@ -10,6 +10,7 @@ Config& Config::get_instance(){
 }
 
 void Config::update_config(){
+    update_option(HOME_DIR, "HOME");
     update_option(EVENT_DIR, "EVENT_DIR");
     update_option(TNH_IP, "TNH_IP");
     update_option(TNH_PORT, "TNH_PORT");
@@ -18,13 +19,6 @@ void Config::update_config(){
 template <typename T>
 void Config::update_option(T& option, std::string env_var){
     try{
-    // Check settings.json
-        std::ifstream ifs;
-        ifs.open("./settings.json");
-    
-        json j = json::parse(ifs);
-        std::stringstream ss;
-    
         // Check for env var
         char* buffer = getenv(env_var);
         if(buffer != NULL){
@@ -42,7 +36,13 @@ void Config::update_option(T& option, std::string env_var){
             ss.str(std::string());
             ss.clear();
     
-    
+            // Check settings.json
+            std::ifstream ifs;
+            ifs.open("./settings.json");
+        
+            json j = json::parse(ifs);
+            std::stringstream ss;
+            
             if(j.contains(env_var)){
                 ss << "Config: " << env_var << " found in settings.json" << std::endl;
                 //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
