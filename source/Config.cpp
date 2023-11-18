@@ -18,31 +18,42 @@ void Config::update_config(){
 template <typename T>
 void Config::update_option(T& option, std::string env_var){
     try{
-        // Get env_var
-        char* buffer = std::getenv(env_var.c_str());
-
-        if(buffer != NULL){
-            option = static_cast<T>(buffer);
-        }
-        else{
-            std::stringstream ss;
-            ss << "Environment variable: " << env_var << " does not exist, now checking settings.json" << std::endl;
-            //std::cerr << ss.str();
-        }
-
-        // Check settings.json
+    // Check settings.json
         std::ifstream ifs;
         ifs.open("./settings.json");
-
+    
         json j = json::parse(ifs);
-
-        if(j.contains(env_var)){
-            option = static_cast<T>(j.at(env_var));
+        std::stringstream ss;
+    
+        // Check for env var
+        char* buffer = getenv(env_var);
+        if(buffer != NULL){
+            option = static_cast<T>(getenv(env_var));
+    
+            ss << "Config: " << env_var << " is set as an env variable" << std::endl;
+            std::cout << ss;
+            //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
         }
+        // Check json if env var doesn't exist
         else{
-            std::stringstream ss;
-            ss << "Setting: " << env_var << " does not have environment variable set or not in settings.json" << std::endl;
-            throw ss; 
+            ss << "Config: " << env_var << " is not set as an env variable, checking settings.json" << std::endl;
+            //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
+            std::cout << ss;
+            ss.str(std::string());
+            ss.clear();
+    
+    
+            if(j.contains(env_var)){
+                ss << "Config: " << env_var << " found in settings.json" << std::endl;
+                //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
+                std::cout << ss;
+                option = static_cast<T>(j.at(env_var));
+            }
+            else{
+                ss << "Config: " << env_var << " not found in settings.json" << std::endl;
+                std::cout << ss;
+                //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
+            }
         }
     }
     catch(std::exception const& e){
