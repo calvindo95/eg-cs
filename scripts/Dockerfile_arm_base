@@ -1,0 +1,14 @@
+FROM balenalib/raspberrypi3:bullseye
+
+# Update apt repos
+RUN --mount=type=cache,target=/var/cache/apt apt update --allow-unauthenticated && apt upgrade -y
+
+# Install packages
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends git
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends curl wget
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends libtool libcurl4-openssl-dev
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends cmake make automake
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends g++ clang
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends python3-dev
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends libboost-dev libboost-all-dev
+RUN --mount=type=cache,target=/var/cache/apt apt -y install --no-install-recommends vim
