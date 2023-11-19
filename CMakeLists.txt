@@ -14,4 +14,7 @@ include_directories(${PYTHON_INCLUDE_DIRS})
 find_package(CURL REQUIRED)
 include_directories(${CURL_INCLUDE_DIR})
 
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+link_directories(${Boost_LIBRARY_DIRS})
+
 add_subdirectory(source)

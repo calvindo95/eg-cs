@@ -3,6 +3,7 @@ include_directories(../include)
 #ADD_LIBRARY(egc SHARED EventGenClient.cpp ${PYTHON_LIBRARIES})
 
 add_library(logging STATIC Logging.cpp)
+target_link_libraries(logging ${Boost_LIBRARIES})
 
 add_library(config STATIC Config.cpp)
 target_link_libraries(config logging)
