@@ -7,6 +7,7 @@
 #include <TSQueue.h>
 #include <Config.h>
 #include <curl/curl.h>
+#include <Logging.h>
 
 class JsonConsumer{
     // start consume thread to read from queue and send to server for processing
@@ -16,6 +17,7 @@ class JsonConsumer{
     private:
         Config& config = Config::get_instance();
         TSQueue<json> json_tsq;
+        Logging m_logger;
 
         void consumer_thread() noexcept; // thread to consume json queue and send post request
         void post_request(json j);
