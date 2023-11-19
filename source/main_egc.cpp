@@ -1,10 +1,14 @@
 #include <Config.h>
 #include <ParseArgument.h>
 #include <WriteJson.h>
+#include <Logging.h>
 
 #include <vector>
 
 int main(int argc, char* argv[]){
+    Logging logger;
+    logger.init();
+    
     Config& config = Config::get_instance();
     
     // parse input
