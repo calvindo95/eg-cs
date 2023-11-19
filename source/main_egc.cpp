@@ -8,7 +8,7 @@
 int main(int argc, char* argv[]){
     Logging logger;
     logger.init();
-    
+
     Config& config = Config::get_instance();
     
     // parse input
@@ -20,11 +20,11 @@ int main(int argc, char* argv[]){
     ParseArgument app(args, "-a");
     app.validate_option();
  
-    ParseArgument pid(args, "-p");
-    pid.validate_option();
+    //ParseArgument pid(args, "-p");
+    //pid.validate_option();
 
-    ParseArgument code(args, "-c");
-    code.validate_option();
+    //ParseArgument code(args, "-c");
+    //code.validate_option();
 
     ParseArgument text(args, "-t");
     text.validate_option();

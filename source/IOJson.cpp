@@ -11,7 +11,9 @@ std::string IOJson::GET_EVT_DIR(){
 std::string IOJson::validate_dir(std::string dir){
     std::string queue_dir = dir + "/queue/";
     if(!std::filesystem::exists(queue_dir)){
-        std::cout << "Creating directory: " << dir << std::endl;
+        std::stringstream ss;
+        ss << "Creating directory: " << dir << std::endl;
+        m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
         std::filesystem::create_directory(dir);
     }
 

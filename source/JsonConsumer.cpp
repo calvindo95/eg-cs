@@ -54,7 +54,12 @@ void JsonConsumer::monitor_thread() noexcept{
         std::vector<std::string> files = rj.get_files_in_dir();
 
         for(int i = 0; i < files.size(); i++){
-            std::cout << "File Monitor thread found file: " << files[i] << std::endl;
+            std::stringstream ss;
+            ss << "File Monitor thread found file: " << files[i] << std::endl;
+            m_logger.log(Logging::severity_level::trace, ss, "GENTRACE");
+            ss.str(std::string());
+            ss.clear();
+
             // Open json file and load into json object
             std::ifstream ifs;
             ifs.open(files[i]);
@@ -68,7 +73,8 @@ void JsonConsumer::monitor_thread() noexcept{
             json_tsq.push(j);
 
             // Delete file after parsing json
-            std::cout << "File Monitor thread deleting file: " << files[i] << std::endl;
+            ss << "File Monitor thread deleting file: " << files[i] << std::endl;
+            m_logger.log(Logging::severity_level::trace, ss, "GENTRACE");
             std::filesystem::remove(files[i]);
 
         }
