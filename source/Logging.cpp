@@ -37,25 +37,31 @@ void Logging::init(){
     boost::shared_ptr< text_sink > sink = boost::make_shared<text_sink>();
 
     // initialize stream to write to all.log
-    sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>("queue.log"));
+    sink->locked_backend()->add_stream(
+        boost::make_shared<std::ofstream>("queue.log"));
     sink->set_formatter(fmt);
-    sink->set_filter(severity >= trace && (boost::log::expressions::has_attr(tag_attr) && tag_attr == "QUEUE"));
+        sink->set_filter(severity >= trace && (         // filter attributes
+        boost::log::expressions::has_attr(tag_attr) && tag_attr == "QUEUE"));
     boost::log::core::get()->add_sink(sink);
     sink->locked_backend()->auto_flush(true);       // sets autoflush; this needs to set to false in prod(true for testing)
 
     // initialize stream to write to gentrace.log
     sink = boost::make_shared<text_sink>();
-    sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>("gentrace.log"));
+    sink->locked_backend()->add_stream(
+        boost::make_shared<std::ofstream>("gentrace.log"));
     sink->set_formatter(fmt);
-    sink->set_filter(severity >= trace && (boost::log::expressions::has_attr(tag_attr) && tag_attr == "GENTRACE"));
+    sink->set_filter(severity >= trace && (         // filter attributes
+        boost::log::expressions::has_attr(tag_attr) && tag_attr == "GENTRACE"));
     boost::log::core::get()->add_sink(sink);
     sink->locked_backend()->auto_flush(true);       // sets autoflush; needs to be false in prod(true for testing)
 
     // initialize stream to write to event.log
     sink = boost::make_shared<text_sink>();
-    sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>("event.log"));
+    sink->locked_backend()->add_stream(
+        boost::make_shared<std::ofstream>("event.log"));
     sink->set_formatter(fmt);
-    sink->set_filter(severity >= trace && (boost::log::expressions::has_attr(tag_attr) && tag_attr == "EVENT"));
+    sink->set_filter(severity >= trace && (         // filter attributes
+        boost::log::expressions::has_attr(tag_attr) && tag_attr == "EVENT"));
     boost::log::core::get()->add_sink(sink);
     sink->locked_backend()->auto_flush(true);       // sets autoflush; needs to be false in prod(true for testing)
 
