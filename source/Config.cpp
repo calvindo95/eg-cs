@@ -22,9 +22,9 @@ void Config::update_option(T& option, std::string env_var){
         std::stringstream ss;
 
         // Check for env var
-        char* buffer = getenv(env_var);
+        char* buffer = getenv(env_var.c_str());
         if(buffer != NULL){
-            option = static_cast<T>(getenv(env_var));
+            option = static_cast<T>(buffer);
     
             ss << "Config: " << env_var << " is set as an env variable" << std::endl;
             std::cout << ss.str();
