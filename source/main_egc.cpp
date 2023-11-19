@@ -12,7 +12,7 @@ int main(int argc, char* argv[]){
     Config& config = Config::get_instance();
     
     // parse input
-    // -a app  -p pid -c code -t text
+    // -a app  -i ip -t text
     const std::vector<std::string> args(argv+1, argv+argc);
 
     int ret_val = 0;
@@ -20,11 +20,8 @@ int main(int argc, char* argv[]){
     ParseArgument app(args, "-a");
     app.validate_option();
  
-    ParseArgument pid(args, "-p");
-    pid.validate_option();
-
-    ParseArgument code(args, "-c");
-    code.validate_option();
+    ParseArgument ip(args, "-i");
+    ip.validate_option();
 
     ParseArgument text(args, "-t");
     text.validate_option();
@@ -32,8 +29,7 @@ int main(int argc, char* argv[]){
     WriteJson wj(config.GET_EVENT_DIR());
 
     wj.insert_json("Application", app.get_option());
-    wj.insert_json("PID", pid.get_option());
-    wj.insert_json("Code", code.get_option());
+    wj.insert_json("IP", ip.get_option());
     wj.insert_json("Text", text.get_option());
 
     wj.write_to_file();
