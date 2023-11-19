@@ -27,14 +27,14 @@ void Config::update_option(T& option, std::string env_var){
             option = static_cast<T>(buffer);
     
             ss << "Config: " << env_var << " is set as an env variable" << std::endl;
-            std::cout << ss.str();
-            //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
+            //std::cout << ss.str();
+            m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
         }
         // Check json if env var doesn't exist
         else{
             ss << "Config: " << env_var << " is not set as an env variable, checking settings.json" << std::endl;
-            //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
-            std::cout << ss.str();
+            //std::cout << ss.str();
+            m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
             ss.str(std::string());
             ss.clear();
     
@@ -46,19 +46,21 @@ void Config::update_option(T& option, std::string env_var){
 
             if(j.contains(env_var)){
                 ss << "Config: " << env_var << " found in settings.json" << std::endl;
-                //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
-                std::cout << ss.str();
+                //std::cout << ss.str();
+                m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
                 option = static_cast<T>(j.at(env_var));
             }
             else{
                 ss << "Config: " << env_var << " not found in settings.json" << std::endl;
-                std::cout << ss.str();
-                //m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
+                //std::cout << ss.str();
+                m_logger.log(Logging::severity_level::normal, ss, "GENTRACE");
             }
         }
     }
     catch(std::exception const& e){
-        std::cerr << e.what() << std::endl;
+        std::stringstream ss;
+        ss << e.what() << std::endl;
+        m_logger.log(Logging::severity_level::warning, ss, "GENTRACE");
     }
 }
 

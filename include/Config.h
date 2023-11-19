@@ -9,11 +9,14 @@
 #include <filesystem>
 
 #include <json.hpp>
+#include <Logging.h>
 
 using json = nlohmann::json;
 
 class Config{
     private:
+        Logging m_logger;
+
         std::string HOME_DIR;
         std::string EVENT_DIR;
         std::string TNH_IP;
