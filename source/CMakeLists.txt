@@ -1,7 +1,5 @@
 include_directories(../include)
 
-#ADD_LIBRARY(egc SHARED EventGenClient.cpp ${PYTHON_LIBRARIES})
-
 add_library(logging STATIC Logging.cpp)
 target_link_libraries(logging ${Boost_LIBRARIES})
 
@@ -17,6 +15,9 @@ add_library(jsonconsumer STATIC JsonConsumer.cpp)
 
 add_executable(${CLIENT} main_egc.cpp)
 target_link_libraries(${CLIENT} config parseargument writejson logging)
+
+add_library(_egc SHARED main_egc.cpp ${PYTHON_LIBRARIES})
+target_link_libraries(_egc config parseargument writejson logging)
 
 add_executable(${SERVER} main_egs.cpp)
 target_link_libraries(${SERVER} config jsonconsumer readjson logging ${CURL_LIBRARIES})

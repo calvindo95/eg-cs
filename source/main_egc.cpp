@@ -14,8 +14,6 @@ int main(int argc, char* argv[]){
     // parse input
     // -a app  -i ip -t text
     const std::vector<std::string> args(argv+1, argv+argc);
-
-    int ret_val = 0;
     
     ParseArgument app(args, "-a");
     app.validate_option();
