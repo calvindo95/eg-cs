@@ -41,7 +41,7 @@ void Config::update_option(T& option, std::string env_var){
     
             // Check settings.json
             std::ifstream ifs;
-            ifs.open("./settings.json");
+            ifs.open(EGCS_SETTINGS_JSON);
         
             json j = json::parse(ifs);
 
