@@ -47,8 +47,9 @@ void Logging::init(){
 
     // initialize stream to write to gentrace.log
     sink = boost::make_shared<text_sink>();
-    sink->locked_backend()->add_stream(
-        boost::make_shared<std::ofstream>("gentrace.log"));
+    sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>(
+        "gentrace.log", std::ios::out | std::ios::app
+    ));
     sink->set_formatter(fmt);
     sink->set_filter(severity >= trace && (         // filter attributes
         boost::log::expressions::has_attr(tag_attr) && tag_attr == "GENTRACE"));
