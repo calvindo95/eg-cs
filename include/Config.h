@@ -18,6 +18,7 @@ class Config{
         Logging m_logger;
 
         std::string HOME_DIR;
+        std::string EGCS_SETTINGS_JSON;
         std::string EVENT_DIR;
         std::string TNH_IP;
         std::string TNH_PORT;
@@ -36,6 +37,7 @@ class Config{
         std::string GET_EVENT_DIR();
         std::string GET_TNH_IP();
         std::string GET_TNH_PORT();
+        std::string GET_EGCS_SETTINGS_JSON();
 };
 
 #endif

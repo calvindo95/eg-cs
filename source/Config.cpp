@@ -10,6 +10,7 @@ Config& Config::get_instance(){
 }
 
 void Config::update_config(){
+    update_option(EGCS_SETTINGS_JSON, "EGCS_SETTINGS_JSON");    // This env var needs to be set for json to work
     update_option(HOME_DIR, "HOME");
     update_option(EVENT_DIR, "EVENT_DIR");
     update_option(TNH_IP, "TNH_IP");
@@ -40,7 +41,7 @@ void Config::update_option(T& option, std::string env_var){
     
             // Check settings.json
             std::ifstream ifs;
-            ifs.open("./settings.json");
+            ifs.open(GET_EGCS_SETTINGS_JSON());
         
             json j = json::parse(ifs);
 
@@ -74,4 +75,8 @@ std::string Config::GET_TNH_IP(){
 
 std::string Config::GET_TNH_PORT(){
     return TNH_PORT;
+}
+
+std::string Config::GET_EGCS_SETTINGS_JSON(){
+    return EGCS_SETTINGS_JSON;
 }

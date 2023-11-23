@@ -1,9 +1,11 @@
 #!/bin/sh
 
-if [ -f ./build/source/egs ];
+. $HOME/eg-cs/scripts/egcs.env
+
+if [ -f $EGCS_EXEC ];
 then
-    ./build/source/egs
+    $EGCS_EXEC
 else
-    echo "./build/source/egs not found"
+    echo "$EGCS_EXEC not found"
     exit
 fi
