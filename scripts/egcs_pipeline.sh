@@ -3,23 +3,23 @@ if [ $# -lt 0 ]; then # checks if number of arguments is less than 1
     return 1
 fi
 
-if $(docker image ls | grep -q egcs-arm-baseimg)
+if $(docker image ls | grep -q egcs-base-arm)
 then
-    echo "egcs-arm-baseimg img exists, building egcs-arm-img"
-    sh scripts/build_img.sh scripts/Dockerfile_arm egcs-arm-img
+    echo "egcs-base-arm img exists, building egcs-arm"
+    sh scripts/build_img.sh scripts/Dockerfile_arm egcs-arm
 
-    if $(docker ps | grep -q egcs-arm-container)
+    if $(docker ps | grep -q egcs)
     then
-        echo "egcs-arm-container still active, stopping."
-        sh scripts/stop.sh egcs-arm-container
+        echo "egcs still active, stopping."
+        sh scripts/stop.sh egcs
     else
-        echo "egcs-arm-container already stopped."
+        echo "egcs-arm already stopped."
     fi
 
     yes | docker container prune
 
-    sh scripts/spinup.sh egcs-arm-img egcs-arm-container
+    sh scripts/spinup.sh egcs-arm egcs
 else
-    echo "egcs-arm-baseimg img does not exist, building base img"
-    sh scripts/build_img.sh scripts/Dockerfile_arm_base egcs-arm-baseimg
+    echo "egcs-base-arm img does not exist, building base img"
+    sh scripts/build_img.sh scripts/Dockerfile_arm_base egcs-base-arm
 fi

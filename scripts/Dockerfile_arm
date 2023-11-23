@@ -1,4 +1,4 @@
-FROM egcs-arm-baseimg
+FROM egcs-base-arm
 
 # set user; everything below is under user webserver
 ENV HOME=/home/webserver
@@ -11,6 +11,6 @@ RUN git clone -b test https://github.com/calvindo95/eg-cs.git && \
     mkdir build && cd build && \
     cmake .. && \
     cmake --build . -j4
-
+scripts/run_server.sh
 WORKDIR /home/webserver/eg-cs
 CMD ["./scripts/run_server.sh"]
