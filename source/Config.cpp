@@ -60,7 +60,7 @@ void Config::update_option(T& option, std::string env_var){
     }
     catch(std::exception const& e){
         std::stringstream ss;
-        ss << e.what() << std::endl;
+        ss << GET_EGCS_SETTINGS_JSON() << " ||||| " << e.what() << std::endl;
         m_logger.log(Logging::severity_level::warning, ss, "GENTRACE");
     }
 }
