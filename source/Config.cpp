@@ -41,7 +41,11 @@ void Config::update_option(T& option, std::string env_var){
     
             // Check settings.json
             std::ifstream ifs;
-            ifs.open(EGCS_SETTINGS_JSON.c_str());
+            ifs.open("/home/webserver/eg-cs/settings.json");
+            ss << GET_EGCS_SETTINGS_JSON().c_str();
+            m_logger.log(Logging::severity_level::error, ss, "GENTRACE");
+            ss.str(std::string());
+            ss.clear();
         
             json j = json::parse(ifs);
 
