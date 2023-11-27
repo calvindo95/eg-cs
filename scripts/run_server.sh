@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $HOME/eg-cs/scripts/egcs.env
+. $HOME/eg-cs/scripts/egcs.env
 
 if [ -f $EGCS_EXEC ];
 then
