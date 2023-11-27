@@ -27,6 +27,8 @@ class Logging{
         // logging methods
         void log(severity_level sl,const std::stringstream& msg, const std::string& filter = "GENTRACE");
         void log(severity_level sl, const std::string& msg, const std::string& filter = "GENTRACE");
+
+        std::string GET_EGCS_HOME();
 };
 
 #endif
