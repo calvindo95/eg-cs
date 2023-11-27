@@ -2,10 +2,10 @@
 
 . $HOME/eg-cs/scripts/egcs.env
 
-if [ -f $EGCS_EXEC ];
+if [ -f $EGS_EXEC ];
 then
-    $EGCS_EXEC
+    $EGS_EXEC
 else
-    echo "$EGCS_EXEC not found"
+    echo "$EGS_EXEC not found"
     exit
 fi
