@@ -1,7 +1,5 @@
 #!/bin/sh
 
-. $HOME/eg-cs/scripts/egcs.env
-
 if [ -f $EGS_EXEC ];
 then
     $EGS_EXEC
