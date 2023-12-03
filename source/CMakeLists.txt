@@ -23,4 +23,4 @@ add_executable(${SERVER} main_egs.cpp)
 target_link_libraries(${SERVER} config jsonconsumer readjson logging ${CURL_LIBRARIES})
 
 install(TARGETS _egc DESTINATION /usr/local/lib)
-install (TARGETS ${SERVER} ${CLIENT} /usr/local/bin)
+install(TARGETS ${SERVER} ${CLIENT} DESTINATION /usr/local/bin)
