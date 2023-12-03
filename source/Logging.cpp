@@ -38,7 +38,7 @@ void Logging::init(){
 
     // initialize stream to write to all.log
     std::stringstream ssq;
-    ssq << GET_EGCS_HOME().c_str() << "/queue.log";
+    ssq << GET_EGCS_LOG().c_str() << "/queue.log";
     sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>(ssq.str()));
     sink->set_formatter(fmt);
     sink->set_filter(severity >= trace && (boost::log::expressions::has_attr(tag_attr) && tag_attr == "QUEUE"));
@@ -47,7 +47,7 @@ void Logging::init(){
 
     // initialize stream to write to gentrace.log
     std::stringstream ssg;
-    ssg << GET_EGCS_HOME().c_str() << "/gentrace.log";
+    ssg << GET_EGCS_LOG().c_str() << "/gentrace.log";
     sink = boost::make_shared<text_sink>();
     sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>(ssg.str(), std::ios::out | std::ios::app));
     sink->set_formatter(fmt);
@@ -57,7 +57,7 @@ void Logging::init(){
 
     // initialize stream to write to event.log
     std::stringstream sse;
-    sse << GET_EGCS_HOME().c_str() << "/event.log";
+    sse << GET_EGCS_LOG().c_str() << "/event.log";
     sink = boost::make_shared<text_sink>();
     sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>(sse.str()));
     sink->set_formatter(fmt);
@@ -109,8 +109,8 @@ std::ostream& operator<<(std::ostream& strm, Logging::severity_level level)
     return strm;
 }
 
-std::string Logging::GET_EGCS_HOME(){
-    char* buffer = getenv("EGCS_HOME");
+std::string Logging::GET_EGCS_LOG(){
+    char* buffer = getenv("EGCS_LOG");
     if(buffer != NULL){
         std::string option = static_cast<std::string>(buffer);
 

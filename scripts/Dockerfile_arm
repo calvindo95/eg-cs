@@ -2,6 +2,12 @@ FROM egcs-base-arm
 
 # set user; everything below is under user webserver
 ENV HOME=/home/webserver
+ENV EGCS_HOME=/home/webserver/eg-cs
+ENV EGS_EXEC=$EGCS_HOME/build/source/egs
+ENV EGCS_SETTINGS_JSON=$EGCS_HOME/settings.json
+ENV EGCS_LOG=/var/opt/egcs/
+ENV EVENT_DIR=$EGCS_LOG/queue/
+
 RUN useradd -ms /bin/bash webserver
 USER webserver
 WORKDIR /home/webserver
