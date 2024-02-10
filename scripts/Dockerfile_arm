@@ -1,21 +1,37 @@
 FROM egcs-base-arm
 
-# set user; everything below is under user webserver
+########## START ROOT ##########
+
+USER root
+RUN useradd -ms /bin/bash webserver
 ENV HOME=/home/webserver
+
 ENV EGCS_HOME=/home/webserver/eg-cs
-ENV EGS_EXEC=$EGCS_HOME/build/source/egs
+ENV EGS_EXEC=/usr/local/bin/egs
 ENV EGCS_SETTINGS_JSON=$EGCS_HOME/settings.json
-ENV EGCS_LOG=/var/opt/egcs/
+ENV EGCS_LOG=/var/opt/egcs
 ENV EVENT_DIR=$EGCS_LOG/queue/
 
-RUN useradd -ms /bin/bash webserver
-USER webserver
-WORKDIR /home/webserver
+RUN mkdir $EGCS_LOG
+RUN chown webserver:webserver $EGCS_LOG
 
+WORKDIR /home/webserver
 RUN git clone -b test https://github.com/calvindo95/eg-cs.git && \
     cd eg-cs/include && wget https://github.com/nlohmann/json/releases/download/v3.11.2/json.hpp && cd .. && \
     mkdir build && cd build && \
     cmake .. && \
-    cmake --build . -j4
+    cmake --build . -j4 --target install
 
+COPY --chown=webserver:webserver settings.json $EGCS_SETTINGS_JSON
+
+########## END ROOT ##########
+
+
+
+########## START WEBSERVER ##########
+
+USER webserver
+WORKDIR /home/webserver
 CMD ["/home/webserver/eg-cs/scripts/run_server.sh"]
+
+########## END WEBSERVER ##########
